@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- VISTA LISTA -->
+        <record id="view_florafiel_mascota_tree" model="ir.ui.view">
+            <field name="name">florafiel.mascota.tree</field>
+            <field name="model">florafiel_mascotas.mascota</field>
+            <field name="arch" type="xml">
+                <tree string="Mascotas">
+                    <field name="name"/>
+                    <field name="especie"/>
+                    <field name="raza"/>
+                    <field name="tamnho"/>
+                    <field name="peso_kg"/>
+                    <field name="edad"/>
+                    <field name="pienso_diario_g"/>
+                    <field name="cliente_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- VISTA KANBAN -->
+        <record id="view_florafiel_mascota_kanban" model="ir.ui.view">
+            <field name="name">florafiel.mascota.kanban</field>
+            <field name="model">florafiel_mascotas.mascota</field>
+            <field name="arch" type="xml">
+                <kanban string="Mascotas">
+                    <field name="name"/>
+                    <field name="especie"/>
+                    <field name="tamnho"/>
+                    <field name="peso_kg"/>
+                    <field name="edad"/>
+                    <field name="cliente_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <strong><field name="name"/></strong>
+                                    <div>Especie: <field name="especie"/></div>
+                                    <div>Tamaño: <field name="tamnho"/></div>
+                                    <div>Edad: <field name="edad"/> años</div>
+                                    <div>Ración: <field name="pienso_diario_g"/> g/día</div>
+                                    <div>Cliente: <field name="cliente_id"/></div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- VISTA FORMULARIO -->
+        <record id="view_florafiel_mascota_form" model="ir.ui.view">
+            <field name="name">florafiel.mascota.form</field>
+            <field name="model">florafiel_mascotas.mascota</field>
+            <field name="arch" type="xml">
+                <form string="Ficha de Mascota">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre de la mascota"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Datos básicos">
+                                <field name="especie"/>
+                                <field name="raza"/>
+                                <field name="tamnho"/>
+                                <field name="cliente_id"/>
+                            </group>
+                            <group string="Datos físicos y edad">
+                                <field name="fecha_nacimiento"/>
+                                <field name="edad"/>
+                                <field name="peso_kg"/>
+                                <field name="pienso_diario_g"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Notas">
+                                <field name="notas" placeholder="Observaciones adicionales..."/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ACCION -->
+        <record id="action_florafiel_mascota" model="ir.actions.act_window">
+            <field name="name">Mascotas</field>
+            <field name="res_model">florafiel_mascotas.mascota</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea la primera ficha de mascota
+                </p>
+            </field>
+        </record>
+
+        <!-- MENUS -->
+        <menuitem
+            id="menu_florafiel_mascotas_root"
+            name="FloraFiel Mascotas"
+            sequence="100"/>
+
+        <menuitem
+            id="menu_florafiel_mascotas_list"
+            name="Todas las mascotas"
+            parent="menu_florafiel_mascotas_root"
+            action="action_florafiel_mascota"
+            sequence="10"/>
+
+    </data>
+</odoo>

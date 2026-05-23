@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Herencia XML con XPath sobre la vista nativa de la ficha de cliente.
+    Anade una pestanha "Mascotas" que muestra las mascotas asociadas
+    al cliente directamente desde su ficha en Odoo.
+-->
+<odoo>
+    <data>
+
+        <!-- ============================================================
+             HERENCIA DE LA VISTA DE CONTACTOS (res.partner)
+
+             inherit_id ref="base.view_partner_form" indica que heredamos
+             de la vista original de la ficha de contactos de Odoo.
+             No tocamos el codigo original — solo anadimos contenido.
+
+             XPath funciona como un GPS dentro del XML original:
+             le decimos donde queremos insertar nuestro codigo.
+             position="before" lo pone justo antes de la pestanha
+             de notas internas, que es la ultima del formulario.
+        ============================================================ -->
+        <record id="view_partner_form_inherit_florafiel_mascotas" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.florafiel.mascotas</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <!-- Buscamos la pestanha de notas internas e insertamos
+                     nuestra pestanha justo antes de ella -->
+                <xpath expr="//page[@name='internal_notes']" position="before">
+
+                    <page string="Mascotas" name="mascotas_page">
+                        <group>
+                            <p class="text-muted">
+                                Mascotas registradas para este cliente en FloraFiel S.L.
+                            </p>
+                        </group>
+
+                        <!-- Campo One2many definido en res_partner.py
+                             Se muestra como una mini tabla editable
+                             dentro de la ficha del cliente -->
+                        <field name="mascota_ids">
+                            <tree string="Mascotas" editable="bottom">
+                                <field name="name"/>
+                                <field name="especie"/>
+                                <field name="raza"/>
+                                <field name="tamnho"/>
+                                <field name="peso_kg"/>
+                                <field name="edad"/>
+                                <field name="pienso_diario_g"/>
+                            </tree>
+                        </field>
+                    </page>
+
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

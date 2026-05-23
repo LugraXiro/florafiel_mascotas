@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Seguridad: definicion de grupos de acceso para florafiel_mascotas.
+    Se definen dos grupos:
+    - Usuario: puede ver y crear fichas de mascotas.
+    - Manager: acceso total, incluido borrar registros.
+-->
+<odoo>
+    <data>
+
+        <!-- Categoria que agrupa los grupos de este modulo.
+             Aparece como cabecera en la pantalla de permisos de usuario. -->
+        <record id="module_florafiel_mascotas_category" model="ir.module.category">
+            <field name="name">FloraFiel Mascotas</field>
+            <field name="description">Gestion de fichas de mascotas en FloraFiel S.L.</field>
+            <field name="sequence">100</field>
+        </record>
+
+        <!-- GRUPO USUARIO
+             Acceso basico: ver y crear mascotas, pero no borrar. -->
+        <record id="group_florafiel_mascotas_user" model="res.groups">
+            <field name="name">Usuario</field>
+            <field name="category_id" ref="module_florafiel_mascotas_category"/>
+            <field name="comment">Puede consultar y crear fichas de mascotas.</field>
+        </record>
+
+        <!-- GRUPO MANAGER
+             Acceso total: incluye borrar registros.
+             Implica al grupo Usuario (implied_ids): un manager
+             tiene automaticamente todos los permisos de usuario. -->
+        <record id="group_florafiel_mascotas_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="module_florafiel_mascotas_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_florafiel_mascotas_user'))]"/>
+            <field name="comment">Acceso total a fichas de mascotas, incluido borrado.</field>
+        </record>
+
+    </data>
+</odoo>

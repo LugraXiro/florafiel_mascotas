@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_florafiel_mascotas_user,access_florafiel_mascotas_user,model_florafiel_mascotas_mascota,florafiel_mascotas.group_florafiel_mascotas_user,1,1,1,0
+access_florafiel_mascotas_manager,access_florafiel_mascotas_manager,model_florafiel_mascotas_mascota,florafiel_mascotas.group_florafiel_mascotas_manager,1,1,1,1
